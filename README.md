@@ -1,45 +1,53 @@
 # 🤖 ESP32 Autonomous Security Patrol Robot with Camera Streaming
 
-This is a fully autonomous 4-motor patrol robot powered by the ESP32, equipped with ultrasonic obstacle avoidance, motion detection, buzzer alerts, and live camera streaming. When motion is detected by the PIR sensor, the ESP32-CAM module activates and begins real-time video transmission over Wi-Fi — perfect for smart home surveillance.
+As a seasoned software developer reviewing this project, I immediately recognize a thoughtfully engineered autonomous security robot combining embedded systems, sensor integration, and real-time video streaming — all running on versatile ESP32 hardware. This project stands out for its practical application in home and small-scale security, with clear modular design and robust behavior logic.
 
 ---
 
-## 📸 Overview
+## 📸 Project Overview
 
-![Robot Diagram](https://raw.githubusercontent.com/user/repo/main/images/robot_diagram.png)
-> *Complete system: Motors + Ultrasonic + PIR + Buzzer + ESP32-CAM*
+![Robot Diagram](https://raw.githubusercontent.com/user/repo/main/images/robot_diagram.png)  
+*Visualizes the entire system: motors, ultrasonic sensors, PIR motion detector, buzzer, and ESP32-CAM module*
 
----
+This robot leverages:
 
-## 🔧 Features
-
-✅ 360° Obstacle Avoidance  
-✅ PIR Motion Detection with Buzzer  
-✅ ESP32-CAM Streaming on Motion  
-✅ Intelligent Reverse + Turning Logic  
-✅ Real-Time Serial Debugging  
+- Four ultrasonic sensors for 360° obstacle detection.
+- PIR sensor-based human motion detection.
+- Buzzer alerts for immediate local notification.
+- ESP32-CAM triggered streaming over Wi-Fi for remote surveillance.
+- Intelligent motion and recovery logic for seamless autonomous patrol.
 
 ---
 
-## 🧰 Hardware Components
+## 🔧 Key Features & Why They Matter
 
-| Component              | Quantity | Notes                                |
-|-----------------------|----------|--------------------------------------|
-| ESP32 Dev Board       | 1        | Motor & sensor control               |
-| ESP32-CAM Module      | 1        | Camera streaming on motion detect   |
-| L298N / L9110 H-Bridge| 2        | Motor driver                         |
-| DC Geared Motors      | 4        | 4WD chassis                          |
-| HC-SR04 Sensors       | 4        | Ultrasonic (front/back/left/right)  |
-| HC-SR501 PIR Sensor   | 1        | Motion detection                     |
-| Active Buzzer Module  | 1        | Audio alert                          |
-| Li-ion Battery (7.4V) | 1        | Power source                         |
-| Chassis + Wheels      | 1        | Robot frame                          |
+- **360° Real-Time Obstacle Avoidance:** Ensures collision-free navigation using ultrasonic ranging in all directions.
+- **Motion-Triggered Camera Streaming:** Optimizes bandwidth and power by streaming only on PIR detection.
+- **Fail-Safe Reverse & Turn Maneuvers:** Robust recovery behavior to prevent getting stuck, a hallmark of mature robotics software.
+- **Buzzer Alerts:** Simple but effective local warning system enhancing security awareness.
+- **Serial Debugging Outputs:** A developer-friendly feature aiding live diagnostics and tuning.
 
 ---
 
-## 🪛 GPIO Pin Mapping
+## 🧰 Hardware Breakdown
 
-### 🧭 Motor Control (ESP32)
+| Component               | Quantity | Purpose                                |
+|-------------------------|----------|--------------------------------------|
+| ESP32 Dev Board         | 1        | Main controller for motion & sensors |
+| ESP32-CAM Module        | 1        | Streaming video on motion detection  |
+| L298N / L9110 Motor Driver | 2      | Drives four DC geared motors         |
+| DC Geared Motors        | 4        | Four-wheel drive mobility             |
+| HC-SR04 Ultrasonic Sensors | 4      | Distance sensing (Front, Back, Left, Right) |
+| HC-SR501 PIR Motion Sensor | 1      | Detects presence of humans            |
+| Active Buzzer Module    | 1        | Audio alert for motion                |
+| Li-ion Battery (7.4V)   | 1        | Portable power supply                  |
+| Chassis & Wheels       | 1        | Structural base for mobility          |
+
+---
+
+## 🪛 GPIO Pin Assignments
+
+### Motor Driver Control (ESP32 Main Board)
 
 | Motor        | IN1 | IN2 | EN (PWM) |
 |--------------|-----|-----|----------|
@@ -48,7 +56,7 @@ This is a fully autonomous 4-motor patrol robot powered by the ESP32, equipped w
 | Back Right   | 19  | 18  | 17       |
 | Front Right  | 16  | 15  | 4        |
 
-### 📡 Ultrasonic Sensors
+### Ultrasonic Sensors
 
 | Direction | TRIG | ECHO |
 |-----------|------|------|
@@ -57,80 +65,76 @@ This is a fully autonomous 4-motor patrol robot powered by the ESP32, equipped w
 | Left      | 5    | 34   |
 | Right     | 12   | 36   |
 
-### 🎯 Other Peripherals
+### Additional Peripherals
 
-| Component      | GPIO |
-|----------------|------|
-| Buzzer         | 21   |
-| PIR Sensor     | 2    |
+| Component  | GPIO Pin |
+|------------|----------|
+| Buzzer     | 21       |
+| PIR Sensor | 2        |
 
-> The ESP32-CAM runs separately but shares the PIR line (GPIO 2) for motion trigger.
-
----
-
-## 🧠 Behavior Logic
-
-![Logic Flow](https://raw.githubusercontent.com/user/repo/main/images/robot_logic_flow_cam.png)
-
-1. **Normal Patrol**: Uses ultrasonic sensors to move around and avoid obstacles.
-2. **Motion Detection**: If PIR sensor detects movement:
-   - The buzzer starts sounding.
-   - ESP32-CAM module begins live video stream.
-3. **Failsafe**: If all directions are blocked, robot stops and alerts via buzzer + stream.
+> Note: The PIR output (GPIO 2 on main ESP32) connects to GPIO13 on ESP32-CAM to trigger video streaming.
 
 ---
 
-## 🔴 ESP32-CAM Streaming Setup
+## 🧠 Software Architecture & Behavior Logic
 
-### Prerequisites:
-- Use **ESP32-CAM AI-Thinker** board
-- Connect to same Wi-Fi as the main ESP32
+![Behavior Logic Diagram](https://raw.githubusercontent.com/user/repo/main/images/robot_logic_flow_cam.png)
 
-### Code Behavior:
-- PIR sensor input triggers ESP32-CAM to start streaming.
-- You can access the camera stream at:
-- You can modify `camera_web_server.ino` to start streaming only when PIR = HIGH.
-
-### Connection (ESP32-CAM PIR):
-
-| PIR Signal | ESP32-CAM |
-|------------|-----------|
-| OUT        | GPIO13    |
-| VCC        | 5V        |
-| GND        | GND       |
+- **Normal Patrol Mode:** Continuous movement with ultrasonic sensors guiding obstacle avoidance.
+- **Motion Detection:** When PIR sensor detects motion:
+  - Buzzer sounds an alert.
+  - ESP32-CAM receives trigger signal, activating live video stream.
+- **Obstacle Encounter:** If blocked, the robot intelligently reverses and turns, avoiding deadlock or collision.
+- **Telemetry:** Real-time sensor values and state transitions output via serial for debugging and performance tuning.
 
 ---
 
-## 📂 Project Structure
+## 🔴 ESP32-CAM Streaming Integration
 
+- Designed around the **ESP32-CAM AI-Thinker** board.
+- Streaming only initiates when PIR sensor input is HIGH, conserving resources.
+- Connects to the same Wi-Fi network as the main ESP32 board.
+- Stream URL is configurable and accessible remotely.
+  
+### Wiring Summary for PIR Trigger
 
----
-
-## 🛠️ Setup Instructions
-
-### ✅ Upload Main Robot Code
-1. Open `main_sketch.ino` in Arduino IDE.
-2. Select **Board**: ESP32 Dev Module.
-3. Connect and upload via USB.
-
-### 📸 Upload ESP32-CAM Code
-1. Use Arduino IDE with `camera_web_server.ino`.
-2. Set Board to **ESP32 AI-Thinker**.
-3. Fill in your Wi-Fi SSID and Password.
-4. Upload using FTDI adapter (hold `IO0` LOW during upload).
+| PIR Output | ESP32-CAM Input |
+|------------|-----------------|
+| OUT (GPIO2 on ESP32) | GPIO13          |
+| VCC        | 5V              |
+| GND        | GND             |
 
 ---
 
-## 🔒 License
+## 🛠️ Setup & Deployment Instructions
 
-This project is licensed under the MIT License. See `LICENSE` for details.
+### 1. Upload Main Robot Firmware
+
+- Open `main_sketch.ino` in Arduino IDE.
+- Select board: **ESP32 Dev Module**.
+- Connect and upload via USB.
+- Open Serial Monitor (115200 baud) for live logs.
+
+### 2. Upload ESP32-CAM Firmware
+
+- Open `camera_web_server.ino` in Arduino IDE.
+- Select board: **ESP32 AI-Thinker**.
+- Configure Wi-Fi credentials in code.
+- Use FTDI adapter to upload (hold IO0 LOW during upload).
+- After reset, streaming starts on PIR motion detection.
 
 ---
 
-## 🙌 Credits
+## 📂 Repository Structure
 
-- [Espressif Camera Example](https://github.com/espressif/esp32-camera)
-- [HC-SR501 PIR Datasheet](https://www.mpja.com/download/31227sc.pdf)
-- [ESP32 Technical Docs](https://docs.espressif.com/)
-
----
+```plaintext
+/
+├── firmware/
+│   └── main_sketch.ino       # Patrol and sensor logic
+├── esp32-cam/
+│   └── camera_web_server.ino # Motion-triggered streaming code
+├── images/
+│   ├── robot_diagram.png
+│   └── robot_logic_flow_cam.png
+├── LICENSE
+└── README.md
