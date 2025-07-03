@@ -125,16 +125,8 @@ This robot leverages:
 
 ---
 
-## 📂 Repository Structure
+## 👨‍💻 Author
 
-```plaintext
-/
-├── firmware/
-│   └── main_sketch.ino       # Patrol and sensor logic
-├── esp32-cam/
-│   └── camera_web_server.ino # Motion-triggered streaming code
-├── images/
-│   ├── robot_diagram.png
-│   └── robot_logic_flow_cam.png
-├── LICENSE
-└── README.md
+**Taha Haris**  
+
+---
