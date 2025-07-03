@@ -121,12 +121,6 @@ This is a fully autonomous 4-motor patrol robot powered by the ESP32, equipped w
 
 ---
 
-## 📡 Live Demo
-
-> Coming soon: Upload video/GIF of motion-triggered patrol + stream
-
----
-
 ## 🔒 License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
