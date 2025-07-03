@@ -1,6 +1,6 @@
-# 🤖 ESP32 Autonomous Security Patrol Robot with Camera Streaming
+# **Auto Guardian**
 
-As a seasoned software developer reviewing this project, I immediately recognize a thoughtfully engineered autonomous security robot combining embedded systems, sensor integration, and real-time video streaming — all running on versatile ESP32 hardware. This project stands out for its practical application in home and small-scale security, with clear modular design and robust behavior logic.
+Auto Guardian is an autonomous security patrol robot powered by ESP32, designed for reliable home and small-area surveillance. It combines real-time obstacle avoidance, human motion detection, audible alerts, and on-demand live video streaming through an ESP32-CAM, delivering an efficient and scalable DIY security solution.
 
 ---
 
