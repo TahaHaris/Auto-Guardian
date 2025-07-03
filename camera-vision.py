@@ -6,7 +6,7 @@ import numpy as np
 from cvlib.object_detection import draw_bbox
 import concurrent.futures
 
-url = 'http://172.20.10.5/capture'
+url = 'ur-esp32-cam-ip-address'
 
 def run1():
     cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
