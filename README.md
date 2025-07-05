@@ -6,7 +6,7 @@ Auto Guardian is an autonomous security patrol robot powered by ESP32, designed 
 
 ## 📸 Project Overview
 
-![Robot Diagram](https://raw.githubusercontent.com/user/repo/main/images/robot_diagram.png)  
+![Robot Diagram]([https://raw.githubusercontent.com/user/repo/main/images/robot_diagram.png](https://github.com/TahaHaris/Auto-Guardian/blob/main/Auto-Guardian%20Video.mov))  
 *Visualizes the entire system: motors, ultrasonic sensors, PIR motion detector, buzzer, and ESP32-CAM module*
 
 This robot leverages:
