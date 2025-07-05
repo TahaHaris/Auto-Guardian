@@ -78,8 +78,6 @@ This robot leverages:
 
 ## 🧠 Software Architecture & Behavior Logic
 
-![Behavior Logic Diagram](https://raw.githubusercontent.com/user/repo/main/images/robot_logic_flow_cam.png)
-
 - **Normal Patrol Mode:** Continuous movement with ultrasonic sensors guiding obstacle avoidance.
 - **Motion Detection:** When PIR sensor detects motion:
   - Buzzer sounds an alert.
