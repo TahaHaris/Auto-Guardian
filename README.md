@@ -121,5 +121,3 @@ This robot leverages:
 ## 👨‍💻 Author
 
 **Taha Haris**  
-
---- it is a github read show me it in the full code version
