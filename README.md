@@ -118,27 +118,6 @@ This robot leverages:
 | VCC        | 5V              |
 | GND        | GND             |
 
----
-
-## 🛠️ Setup & Deployment Instructions
-
-### 1. Upload Main Robot Firmware
-
-- Open main_sketch.ino in Arduino IDE.
-- Select board: **ESP32 Dev Module**.
-- Connect and upload via USB.
-- Open Serial Monitor (115200 baud) for live logs.
-
-### 2. Upload ESP32-CAM Firmware
-
-- Open camera_web_server.ino in Arduino IDE.
-- Select board: **ESP32 AI-Thinker**.
-- Configure Wi-Fi credentials in code.
-- Use FTDI adapter to upload (hold IO0 LOW during upload).
-- After reset, streaming starts on PIR motion detection.
-
----
-
 ## 👨‍💻 Author
 
 **Taha Haris**  
