@@ -32,16 +32,16 @@ This robot leverages:
 ## 🧰 Hardware Breakdown
 
 | Component               | Quantity | Purpose                                |
-|-------------------------|----------|--------------------------------------|
-| ESP32 Dev Board         | 1        | Main controller for motion & sensors |
-| ESP32-CAM Module        | 1        | Streaming video on motion detection  |
-| L298N / L9110 Motor Driver | 2      | Drives four DC geared motors         |
-| DC Geared Motors        | 4        | Four-wheel drive mobility             |
-| HC-SR04 Ultrasonic Sensors | 4      | Distance sensing (Front, Back, Left, Right) |
-| HC-SR501 PIR Motion Sensor | 1      | Detects presence of humans            |
-| Active Buzzer Module    | 1        | Audio alert for motion                |
+|-------------------------|----------|----------------------------------------|
+| ESP32 Dev Board         | 1        | Main controller for motion & sensors   |
+| ESP32-CAM Module        | 1        | Streaming video on motion detection    |
+| L298N / L9110 Motor Driver | 2     | Drives four DC geared motors           |
+| DC Geared Motors        | 4        | Four-wheel drive mobility              |
+| HC-SR04 Ultrasonic Sensors | 4     | Distance sensing (Front, Back, Left, Right) |
+| HC-SR501 PIR Motion Sensor | 1     | Detects presence of humans             |
+| Active Buzzer Module    | 1        | Audio alert for motion                 |
 | Li-ion Battery (7.4V)   | 1        | Portable power supply                  |
-| Chassis & Wheels       | 1        | Structural base for mobility          |
+| Chassis & Wheels        | 1        | Structural base for mobility           |
 
 ---
 
@@ -76,7 +76,7 @@ This robot leverages:
 
 ---
 
-## 🧠 Software Architecture & Behavior Logic
+## 🧠 Software Architecture 
 
 - **Normal Patrol Mode:** Continuous movement with ultrasonic sensors guiding obstacle avoidance.
 - **Motion Detection:** When PIR sensor detects motion:
@@ -84,6 +84,22 @@ This robot leverages:
   - ESP32-CAM receives trigger signal, activating live video stream.
 - **Obstacle Encounter:** If blocked, the robot intelligently reverses and turns, avoiding deadlock or collision.
 - **Telemetry:** Real-time sensor values and state transitions output via serial for debugging and performance tuning.
+
+---
+
+### 🗺️ State Machine & Behavior Logic
+
+**PATROL**  
+- Move forward until obstacle detected  
+- Scan left/right distances → turn toward largest gap  
+
+**ALERT (PIR HIGH)**  
+- Freeze motors, activate buzzer (3× 0.5s beeps)  
+- Signal ESP32-CAM via GPIO13 → start stream  
+- Resume patrol after 30s timeout  
+
+**RECOVERY (Collision Detected)**  
+- Reverse 0.5m → 90° turn → continue patrol  
 
 ---
 
@@ -108,14 +124,14 @@ This robot leverages:
 
 ### 1. Upload Main Robot Firmware
 
-- Open `main_sketch.ino` in Arduino IDE.
+- Open main_sketch.ino in Arduino IDE.
 - Select board: **ESP32 Dev Module**.
 - Connect and upload via USB.
 - Open Serial Monitor (115200 baud) for live logs.
 
 ### 2. Upload ESP32-CAM Firmware
 
-- Open `camera_web_server.ino` in Arduino IDE.
+- Open camera_web_server.ino in Arduino IDE.
 - Select board: **ESP32 AI-Thinker**.
 - Configure Wi-Fi credentials in code.
 - Use FTDI adapter to upload (hold IO0 LOW during upload).
@@ -127,4 +143,4 @@ This robot leverages:
 
 **Taha Haris**  
 
----
+--- it is a github read show me it in the full code version
